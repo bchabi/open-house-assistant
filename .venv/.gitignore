@@ -1,0 +1,8 @@
+# Hide secrets and IDE stuff
+.streamlit/secrets.toml
+.idea/
+*.iml
+__pycache__/
+*.pyc
+.venv/
+env/
