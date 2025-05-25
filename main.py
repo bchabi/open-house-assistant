@@ -13,11 +13,13 @@ st.set_page_config(page_title="Open House Assistant", page_icon="🏫", layout="
 client = OpenAI(api_key=st.secrets["openai_api_key"])
 # ---------- Static Q&A ----------
 qa_pairs = {
-    "Who is the principal": "Ms. Yam",
-    "What subjects do you learn": "Math, science, Mandarin, French, coding, English",
-    "What are the school hours": "9:00 to 3:30 every day, except Wednesday: 9:00 to 2:30",
+    "Who is the principal": "Ms. Anne Yam",
+    "Who is the vice principal": "Ms. Eleni Gardikiotis",
+    "What subjects do you learn": "Math, science, Mandarin, French, coding, English Languge arts, Social studies, Physical education, Social emotional learning, Music, Art, Religion, Career/Health education",
+    "What are the school hours": "8:30 to 3:30 every day, except Wednesday: 8:30 to 2:30",
     "What sport events do you have": "Track and field, soccer, basketball, volleyball, cross country",
-    "What clubs are there?": "Destination Imagination, choir, Afterschool sports, green club, leadership club"
+    "What extra-curricular activities are there?": "Destination Imagination, Intermediate and primary choir, Afterschool sports, Green club, Leadership club, Peer helpers club, Running club, Art club, G-square, Alter servers, Math enrichment",
+    "What is the tuition fee": "Maximum $580/month"
 }
 
 # ---------- Session State ----------
