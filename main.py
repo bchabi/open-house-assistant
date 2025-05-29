@@ -17,7 +17,8 @@ qa_pairs = {
     "What subjects do you learn": "Math, science, Mandarin, French, coding, arts, Physical education, English language arts, social emotional learning, health and career education",
     "What are the school hours": "9:00 to 3:30 every day, except Wednesday: 9:00 to 2:30",
     "What sport events do you have": "Track and field, soccer, basketball, volleyball, cross country",
-    "What clubs are there?": "Destination Imagination, choir, Afterschool sports, green club, leadership club"
+    "What clubs are there?": "Destination Imagination, choir, Afterschool sports, green club, leadership club",
+    "Who is the vice principal": "Ms. Eleni Gardikiotis"
 }
 
 # ---------- Session State ----------
@@ -94,7 +95,7 @@ with col1:
 
             messages = [
                 {"role": "system", "content": "You are an assistant helping visitors learn about Saint Francis Xavier School. Base your answers on information from https://sfxschool.ca."}
-            ] + st.session_state.chat_history #test
+            ] + st.session_state.chat_history
 
             try:
                 chat_response = client.chat.completions.create(
@@ -118,7 +119,7 @@ with col1:
 # ---------- Right Column: Camera Vision ----------
 with col2:
     st.markdown("### 📷 Visual Help Station")
-    mode = st.selectbox("Choose Mode:", ["🧠 Analyze Room", "🤟 Interpret ASL"])
+    mode = st.selectbox("Choose Mode:", ["🧠 Analyze Room", "🤟 Interpret ASL Letter", "👐 Interpret ASL Word"])
 
     picture = st.camera_input("Capture Image")
 
@@ -131,8 +132,10 @@ with col2:
 
                 if mode == "🧠 Analyze Room":
                     prompt = "Describe this image in detail to a visually impaired person."
-                else:
+                elif mode == "🤟 Interpret ASL Letter":
                     prompt = "What ASL letter is the person showing in this image? Only describe the letter being signed."
+                elif mode == "👐 Interpret ASL Word":
+                    prompt = "What ASL word or phrase is the person signing in this image? Be clear and concise in the interpretation."
 
                 description = describe_image(image_data, prompt)
 
