@@ -9,12 +9,12 @@ from openai import OpenAI
 st.set_page_config(page_title="Open House Assistant", page_icon="🏫", layout="wide")
 
 # ---------- Initialize OpenAI Client ----------
-
 client = OpenAI(api_key=st.secrets["openai_api_key"])
+
 # ---------- Static Q&A ----------
 qa_pairs = {
     "Who is the principal": "Ms. Anne Yam",
-    "What subjects do you learn": "Math, science, Mandarin, French, coding, English",
+    "What subjects do you learn": "Math, science, Mandarin, French, coding, arts, Physical education, English language arts, social emotional learning, health and career education",
     "What are the school hours": "9:00 to 3:30 every day, except Wednesday: 9:00 to 2:30",
     "What sport events do you have": "Track and field, soccer, basketball, volleyball, cross country",
     "What clubs are there?": "Destination Imagination, choir, Afterschool sports, green club, leadership club"
@@ -38,23 +38,17 @@ def speak(text):
 # ---------- GPT Vision Description ----------
 def describe_image(image_data, prompt):
     base64_image = base64.b64encode(image_data).decode("utf-8")
-    response = client.responses.create(
+    response = client.chat.completions.create(
         model="gpt-4o",
-        input=[
-            {
-                "role": "user",
-                "content": [
-                    {"type": "input_text", "text": prompt},
-                    {
-                        "type": "input_image",
-                        "image_url": f"data:image/jpeg;base64,{base64_image}",
-                        "detail": "high"
-                    }
-                ]
-            }
-        ]
+        messages=[{
+            "role": "user",
+            "content": [
+                {"type": "text", "text": prompt},
+                {"type": "image_url", "image_url": f"data:image/jpeg;base64,{base64_image}", "detail": "high"}
+            ]
+        }]
     )
-    return response.output_text.strip()
+    return response.choices[0].message.content.strip()
 
 # ---------- Header ----------
 st.markdown("""
@@ -66,7 +60,7 @@ st.markdown("""
 # ---------- Layout ----------
 col1, col2 = st.columns([3, 1.3], gap="large")
 
-# ---------- Left Column: Predefined Questions ----------
+# ---------- Left Column: Chat Assistant ----------
 with col1:
     st.markdown("### 📝 Ask a Question")
 
@@ -81,6 +75,7 @@ with col1:
             st.audio(st.session_state.audio_bytes, format="audio/mp3")
 
     # Predefined buttons
+    st.markdown("#### Quick Questions")
     for question in qa_pairs.keys():
         if st.button(f"❓ {question}", use_container_width=True):
             st.session_state.chat_history.append({"role": "user", "content": question})
@@ -88,6 +83,30 @@ with col1:
             st.session_state.chat_history.append({"role": "assistant", "content": answer})
             st.session_state.audio_bytes = speak(answer)
             st.rerun()
+
+    # Freeform user question
+    st.markdown("#### Or ask something else:")
+    user_input = st.text_input("Type your question here:")
+
+    if st.button("💬 Send"):
+        if user_input.strip() != "":
+            st.session_state.chat_history.append({"role": "user", "content": user_input})
+
+            messages = [
+                {"role": "system", "content": "You are an assistant helping visitors learn about Saint Francis Xavier School. Base your answers on information from https://sfxschool.ca."}
+            ] + st.session_state.chat_history
+
+            try:
+                chat_response = client.chat.completions.create(
+                    model="gpt-4o",
+                    messages=messages
+                )
+                answer = chat_response.choices[0].message.content
+                st.session_state.chat_history.append({"role": "assistant", "content": answer})
+                st.session_state.audio_bytes = speak(answer)
+                st.rerun()
+            except Exception as e:
+                st.error(f"Error generating answer: {e}")
 
     # Reset button
     if st.button("🧹 Clear Conversation", use_container_width=True):
