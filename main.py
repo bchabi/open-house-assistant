@@ -13,7 +13,7 @@ st.set_page_config(page_title="Open House Assistant", page_icon="🏫", layout="
 client = OpenAI(api_key=st.secrets["openai_api_key"])
 # ---------- Static Q&A ----------
 qa_pairs = {
-    "Who is the principal": "Ms. Yam",
+    "Who is the principal": "Ms. Anne Yam",
     "What subjects do you learn": "Math, science, Mandarin, French, coding, English",
     "What are the school hours": "9:00 to 3:30 every day, except Wednesday: 9:00 to 2:30",
     "What sport events do you have": "Track and field, soccer, basketball, volleyball, cross country",
