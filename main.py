@@ -94,7 +94,7 @@ with col1:
 
             messages = [
                 {"role": "system", "content": "You are an assistant helping visitors learn about Saint Francis Xavier School. Base your answers on information from https://sfxschool.ca."}
-            ] + st.session_state.chat_history
+            ] + st.session_state.chat_history #test
 
             try:
                 chat_response = client.chat.completions.create(
