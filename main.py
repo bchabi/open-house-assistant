@@ -36,7 +36,7 @@ qa_pairs = {
     "What subjects do you learn": "Math, science, Mandarin, French, coding, arts, Physical education, English language arts, social emotional learning, health and career education",
     "What are the school hours": "8:30 to 3:30 every day, except Wednesday: 8:30 to 2:30",
     "What sport events do you have": "Track and field, soccer, basketball, volleyball, badminton, cross country",
-    "What clubs are there?": "Destination Imagination, choir, Afterschool sports, green club, leadership club"
+    "What clubs are there?": "Destination Imagination, choir, Afterschool sports, green club, leadership club, math enrichment, g-square, peer helpers"
 }
 
 # 📚 These are quick answers for common questions about the school.
