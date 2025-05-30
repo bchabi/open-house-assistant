@@ -5,6 +5,12 @@ from io import BytesIO  # This helps us save sound in memory
 from PIL import Image  # This helps us show pictures
 import base64  # This turns pictures into code the AI understands
 from openai import OpenAI  # This connects to the smart AI (ChatGPT)
+# 🖥️ Set up the look and feel of our webpage
+st.set_page_config(
+    page_title="Open House Assistant",  # Title at the top
+    page_icon="🏫",  # Little school emoji icon
+    layout="wide"  # Stretch the layout wide
+)
 
 """
 📦 These tools do different things:
@@ -16,12 +22,6 @@ from openai import OpenAI  # This connects to the smart AI (ChatGPT)
 - OpenAI talks to the AI assistant.
 """
 
-# 🖥️ Set up the look and feel of our webpage
-st.set_page_config(
-    page_title="Open House Assistant",  # Title at the top
-    page_icon="🏫",  # Little school emoji icon
-    layout="wide"  # Stretch the layout wide
-)
 
 """
 🎨 This makes the page look nice and wide with a cute icon and title.
