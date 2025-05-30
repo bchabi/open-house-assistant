@@ -8,7 +8,7 @@ from openai import OpenAI  # This connects to the smart AI (ChatGPT)
 
 # 🖥️ Set up the look and feel of our webpage
 st.set_page_config(
-    page_title="Open House Assistant",  # Title at the top
+    page_title="Open House Signbot",  # Title at the top
     page_icon="🏫",  # Little school emoji icon
     layout="wide"  # Stretch the layout wide
 )
