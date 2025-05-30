@@ -5,6 +5,7 @@ from io import BytesIO  # This helps us save sound in memory
 from PIL import Image  # This helps us show pictures
 import base64  # This turns pictures into code the AI understands
 from openai import OpenAI  # This connects to the smart AI (ChatGPT)
+
 # 🖥️ Set up the look and feel of our webpage
 st.set_page_config(
     page_title="Open House Assistant",  # Title at the top
@@ -12,28 +13,21 @@ st.set_page_config(
     layout="wide"  # Stretch the layout wide
 )
 
-"""
-📦 These tools do different things:
-- streamlit lets us build the webpage.
-- gTTS turns words into voice.
-- BytesIO stores the voice in memory.
-- PIL helps with pictures.
-- base64 helps send pictures as special letters.
-- OpenAI talks to the AI assistant.
-"""
+# 📦 These tools do different things:
+# - streamlit lets us build the webpage.
+# - gTTS turns words into voice.
+# - BytesIO stores the voice in memory.
+# - PIL helps with pictures.
+# - base64 helps send pictures as special letters.
+# - OpenAI talks to the AI assistant.
 
-
-"""
-🎨 This makes the page look nice and wide with a cute icon and title.
-"""
+# 🎨 This makes the page look nice and wide with a cute icon and title.
 
 # 🔐 Connect to OpenAI using a secret password (API key)
 client = OpenAI(api_key=st.secrets["openai_api_key"])
 
-"""
-🧠 This connects us to the ChatGPT brain using a secret password
-so it knows we are allowed to use it.
-"""
+# 🧠 This connects us to the ChatGPT brain using a secret password
+# so it knows we are allowed to use it.
 
 # ❓ These are some questions and answers already ready to go!
 qa_pairs = {
@@ -45,10 +39,8 @@ qa_pairs = {
     "What clubs are there?": "Destination Imagination, choir, Afterschool sports, green club, leadership club"
 }
 
-"""
-📚 These are quick answers for common questions about the school.
-They help people learn without typing much!
-"""
+# 📚 These are quick answers for common questions about the school.
+# They help people learn without typing much!
 
 # 🧠 Save information so we remember the chat and voice
 if "chat_history" not in st.session_state:
@@ -60,10 +52,8 @@ if "audio_bytes" not in st.session_state:
 if "image_audio_bytes" not in st.session_state:
     st.session_state.image_audio_bytes = None
 
-"""
-💾 This keeps track of what people asked, what the robot said, and the sound files.
-It's like a memory box!
-"""
+# 💾 This keeps track of what people asked, what the robot said, and the sound files.
+# It's like a memory box!
 
 # 🔊 This turns words into a robot voice you can hear
 def speak(text):
@@ -72,9 +62,7 @@ def speak(text):
     tts.write_to_fp(mp3_fp)  # Write sound into memory
     return mp3_fp.getvalue()  # Return the sound to play
 
-"""
-🗣️ This lets the robot say things out loud using a voice.
-"""
+# 🗣️ This lets the robot say things out loud using a voice.
 
 # 🖼️ This tells the AI to describe what it sees in a picture
 def describe_image(image_data, prompt):
@@ -96,10 +84,8 @@ def describe_image(image_data, prompt):
     )
     return response.choices[0].message.content.strip()
 
-"""
-📷 This lets us send a picture to the AI and ask:
-"Can you describe this?" Then it tells us what it sees!
-"""
+# 📷 This lets us send a picture to the AI and ask:
+# "Can you describe this?" Then it tells us what it sees!
 
 # 🧾 Add a big title and intro to the webpage
 st.markdown("""
@@ -108,18 +94,14 @@ st.markdown("""
     <hr style='border-top: 2px solid #004466;'/>
 """, unsafe_allow_html=True)
 
-"""
-📢 This makes a fancy title and description at the top of the page.
-"""
+# 📢 This makes a fancy title and description at the top of the page.
 
 # 🧱 Split the screen into two parts: left and right
 col1, col2 = st.columns([3, 1.3], gap="large")
 
-"""
-📏 This creates two columns:
-- Left side: Ask questions and chat
-- Right side: Take a picture and get help
-"""
+# 📏 This creates two columns:
+# - Left side: Ask questions and chat
+# - Right side: Take a picture and get help
 
 # LEFT SIDE: Chat and Q&A
 with col1:
@@ -134,10 +116,8 @@ with col1:
         if st.session_state.audio_bytes:
             st.audio(st.session_state.audio_bytes, format="audio/mp3")
 
-    """
-    💬 This shows all the messages in the conversation so far.
-    If the robot gave a voice answer, you can hear it again!
-    """
+    # 💬 This shows all the messages in the conversation so far.
+    # If the robot gave a voice answer, you can hear it again!
 
     # 🧠 Buttons for quick questions
     st.markdown("#### Quick Questions")
@@ -149,10 +129,8 @@ with col1:
             st.session_state.audio_bytes = speak(answer)
             st.rerun()
 
-    """
-    ✅ If you click a question, the robot answers right away.
-    You can hear the answer with a voice too!
-    """
+    # ✅ If you click a question, the robot answers right away.
+    # You can hear the answer with a voice too!
 
     # 🧠 Ask your own question by typing
     st.markdown("#### Or ask something else:")
@@ -177,9 +155,7 @@ with col1:
             except Exception as e:
                 st.error(f"Error generating answer: {e}")
 
-    """
-    🧠 When you ask your own question, it talks to the AI and gives a new answer.
-    """
+    # 🧠 When you ask your own question, it talks to the AI and gives a new answer.
 
     # 🧹 Clear all the messages
     if st.button("🧹 Clear Conversation", use_container_width=True):
@@ -188,9 +164,7 @@ with col1:
         st.session_state.image_audio_bytes = None
         st.rerun()
 
-    """
-    🧼 This button clears everything so you can start fresh.
-    """
+    # 🧼 This button clears everything so you can start fresh.
 
 # RIGHT SIDE: Camera Vision Station
 with col2:
@@ -203,12 +177,10 @@ with col2:
         "👐 Interpret ASL Word"
     ])
 
-    """
-    📸 Pick what you want to do:
-    - Analyze Room: describe the classroom or area
-    - ASL Letter: tell what hand sign you're making
-    - ASL Word: tell what word you're signing in ASL
-    """
+    # 📸 Pick what you want to do:
+    # - Analyze Room: describe the classroom or area
+    # - ASL Letter: tell what hand sign you're making
+    # - ASL Word: tell what word you're signing in ASL
 
     # 📷 Take a picture using the webcam
     picture = st.camera_input("Capture Image")
@@ -239,10 +211,8 @@ with col2:
             except Exception as e:
                 st.error(f"❌ Error generating description: {e}")
 
-    """
-    📷 This takes your picture, sends it to the AI, and gets a smart explanation.
-    It even reads it out loud for you!
-    """
+    # 📷 This takes your picture, sends it to the AI, and gets a smart explanation.
+    # It even reads it out loud for you!
 
 # 🦶 Bottom of the page message
 st.markdown("""
@@ -252,7 +222,4 @@ st.markdown("""
     </p>
 """, unsafe_allow_html=True)
 
-"""
-❤️ A kind little message to show this was made to help everyone feel welcome.
-"""
-
+# ❤️ A kind little message to show this was made to help everyone feel welcome.
