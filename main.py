@@ -8,7 +8,7 @@ from openai import OpenAI  # This connects to the smart AI (ChatGPT)
 
 # 🖥️ Set up the look and feel of our webpage
 st.set_page_config(
-    page_title="Open House Signbot",  # Title at the top
+    page_title="Open House SignBot",  # Title at the top
     page_icon="🏫",  # Little school emoji icon
     layout="wide"  # Stretch the layout wide
 )
@@ -89,7 +89,7 @@ def describe_image(image_data, prompt):
 
 # 🧾 Add a big title and intro to the webpage
 st.markdown("""
-    <h1 style='text-align: center; color:#004466;'>🏫 Open House Assistant</h1>
+    <h1 style='text-align: center; color:#004466;'>🏫 Open House SignBot</h1>
     <p style='text-align: center; font-size:18px;'>Making school tours inclusive and informative for everyone.</p>
     <hr style='border-top: 2px solid #004466;'/>
 """, unsafe_allow_html=True)
